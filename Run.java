@@ -6,6 +6,7 @@ import java.awt.Graphics;
 
 
 public class Run {
+    private static ArrayList<Player> players = new ArrayList<>();
     private static ArrayList<String> playerNames = new ArrayList<String>();
     //imported colors from ANSI
     public static final String RESET = "\u001B[0m";
@@ -33,12 +34,15 @@ public class Run {
             String randColor = colors[(int) (Math.random() * 7) + 0];
             System.out.print(randColor + "Enter player #" + (i+1) + " name: ");
             String name = playerScanner.nextLine();
-            Player player = new Player();
             System.out.print(RESET);
             playerNames.add(name);
 
         }
-        playerScanner.close();
+        for(int j = 0; j < playerNum; j++){
+            Player p =  new Player();
+            players.add(p);
+        }
+        // playerScanner.close();
         Collections.shuffle(playerNames);
         System.out.println("Players: " + playerNames);
     }
@@ -66,12 +70,10 @@ public class Run {
     
     
     public static void main(String[] args) {
-        DiePrinter print = new DiePrinter();
-        
         yahtzeeLogo();
         playerNames();  
-        new Player playerNames.get(0).playerTurn();
-       playerNames.get(0).playerTurn();
+        players.get(0).playerTurn();
+
         
 
         
@@ -79,3 +81,8 @@ public class Run {
     }
 
 }
+// AMSCI ART STUFF
+// PS C:\Users\tvhsstudent\Documents\Jude\Yaht> chcp 65001
+// Active code page: 65001
+// PS C:\Users\tvhsstudent\Documents\Jude\Yaht> javac .\Run.java
+// PS C:\Users\tvhsstudent\Documents\Jude\Yaht> java .\Run.java
