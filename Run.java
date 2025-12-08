@@ -28,7 +28,7 @@ public class Run {
         System.out.print("Enter number of players (max = 4 so far): ");
         int playerNum = playerScanner.nextInt();
         playerScanner.nextLine();
-        //generate 4 unique random numbers 
+        //generate user_defined unique random numbers 
         for(int i = 0; i < playerNum; i ++){
             System.out.print(RESET);
             String randColor = colors[(int) (Math.random() * 7) + 0];
@@ -81,8 +81,10 @@ public class Run {
     }
 
 }
-// AMSCI ART STUFF
+// AMSCI ART STUFF (in case of reset)
 // PS C:\Users\tvhsstudent\Documents\Jude\Yaht> chcp 65001
 // Active code page: 65001
 // PS C:\Users\tvhsstudent\Documents\Jude\Yaht> javac .\Run.java
 // PS C:\Users\tvhsstudent\Documents\Jude\Yaht> java .\Run.java
+
+//or go to language settings and enable UNIF 8 support under admin
