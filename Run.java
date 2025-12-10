@@ -22,19 +22,16 @@ public class Run {
 
 
     public static void playerNames() {
-
         Scanner playerScanner = new Scanner(System.in);
-
         System.out.print("Enter number of players (max = 4 so far): ");
         int playerNum = playerScanner.nextInt();
         playerScanner.nextLine();
-        //generate user_defined unique random numbers 
+
+        //generate random colors 
         for(int i = 0; i < playerNum; i ++){
-            System.out.print(RESET);
             String randColor = colors[(int) (Math.random() * 7) + 0];
-            System.out.print(randColor + "Enter player #" + (i+1) + " name: ");
+            System.out.print(randColor + "Enter player #" + (i+1) + " name: "+RESET);
             String name = playerScanner.nextLine();
-            System.out.print(RESET);
             playerNames.add(name);
 
         }
@@ -42,7 +39,6 @@ public class Run {
             Player p =  new Player();
             players.add(p);
         }
-        // playerScanner.close();
         Collections.shuffle(playerNames);
         System.out.println("Players: " + playerNames);
     }
@@ -65,26 +61,19 @@ public class Run {
                         "                                                                     ");
                         System.out.print(RESET);
     } 
-
+    public static void playerCycle() {
+        for (int p = 0; p < players.size(); p++) {
+            players.get(p).playerTurn();
+        }
+    }
     
     
     
     public static void main(String[] args) {
+        System.out.print("\033[H\033[2J");
         yahtzeeLogo();
         playerNames();  
-        players.get(0).playerTurn();
-
-        
-
-        
-
+        playerCycle();
     }
 
 }
-// AMSCI ART STUFF (in case of reset)
-// PS C:\Users\tvhsstudent\Documents\Jude\Yaht> chcp 65001
-// Active code page: 65001
-// PS C:\Users\tvhsstudent\Documents\Jude\Yaht> javac .\Run.java
-// PS C:\Users\tvhsstudent\Documents\Jude\Yaht> java .\Run.java
-
-//or go to language settings and enable UNIF 8 support under admin
