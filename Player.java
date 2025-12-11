@@ -17,54 +17,53 @@ public class Player{
         private ArrayList<Integer> heldDice = new ArrayList<>();
         private ArrayList<Die> rollingDice;
         private ArrayList<String> ScoreSheet = new ArrayList<String>();
-        private Run blah = new Run();
         private DicePrinter diePrint = new DicePrinter();
         private int diceAmount;
 
 
         public Player() {
 
-                name = blah.getPlayerNames().get(0);
+                name = null;
                 heldDice = null;
                 this.rollingDice = new ArrayList<>();
                 ScoreSheet = null;
                 diceAmount = 5;
 
         }
-
+        public void setName(){
+                name = playerTurn();;
+        }
         public void playerTurn() {
                 getNewDice();
                 setRollingDice();
         }
         public ArrayList<Die> setRollingDice(){
-                for(int r = 0; r < 1; r++){
+                diePrint.print(rollingDice);
+                for(int r = 0; r < 2; r++){
                         //reroll
-                        diePrint.print(rollingDice);
                         Scanner rollScanner = new Scanner(System.in);
-                        System.out.print(BLACK+"\033[3mWould you like to reroll Y/N \033[0m"+RED+name+"? "+RESET);
-                        String reroll = rollScanner.nextLine();
-                        if(reroll.equalsIgnoreCase("y") ||reroll.equalsIgnoreCase("Y") || reroll.equalsIgnoreCase("yes") || reroll.equalsIgnoreCase("Yes")) {
-                                //dice reroll amount
-                                System.out.println("How many dice would you like to reroll " + name +"?");
-                                int diceAmount = rollScanner.nextInt();
-                                for(int i = 0; i < diceAmount; i++) {
-                                        //dice to reroll
-                                        System.out.println("What dice would you like to reroll " + name +"?");
-                                        int rerolled = rollScanner.nextInt();
-                                        for(int k = 0; k < diceAmount; k++) 
-                                        {
-                                                //reroll
-                                                Die die = new Die();
-                                                die.roll();
-                                                rollingDice.set(rerolled-1,die);
-
-                                        }
-
-                                }
-
+                        System.out.print(BLACK + "\033[3mWould you like to reroll Y/N \033[0m" + RED + name + "? " + RESET);
+                        String reroll = rollScanner.nextLine(); 
+                        if (reroll.equalsIgnoreCase("y") || reroll.equalsIgnoreCase("yes")) { 
+                        System.out.print("How many dice would you like to reroll: " + name + "? ");
+                        int diceAmount = rollScanner.nextInt();
+                        rollScanner.nextLine(); 
+                        diePrint.print(rollingDice);
+                        for (int i = 0; i < diceAmount; i++) {
+                                System.out.print("which die would you like to reroll " + name + "? ");
+                                int rerolledIndex = rollScanner.nextInt();
+                                rollScanner.nextLine(); 
+                                Die die = new Die();  
+                                //resest terminal
+                                System.out.print("\033[H\033[2J");
+                                rollingDice.set(rerolledIndex-1, die);
+                                System.out.println(BLACK+"Die #" + rerolledIndex + " has been rerolled "+ name + RESET);
+                                diePrint.print(rollingDice);
+                        }
                         }
                         else {
                                 System.out.println("keeping dice");
+                                diePrint.print(rollingDice);
                         }
                 }
                 return rollingDice;

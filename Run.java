@@ -8,6 +8,7 @@ import java.awt.Graphics;
 public class Run {
     private static ArrayList<Player> players = new ArrayList<>();
     private static ArrayList<String> playerNames = new ArrayList<String>();
+
     //imported colors from ANSI
     public static final String RESET = "\u001B[0m";
     public static final String BLACK = "\u001B[30m";
@@ -31,13 +32,14 @@ public class Run {
         for(int i = 0; i < playerNum; i ++){
             String randColor = colors[(int) (Math.random() * 7) + 0];
             System.out.print(randColor + "Enter player #" + (i+1) + " name: "+RESET);
-            String name = playerScanner.nextLine();
-            playerNames.add(name);
+
+            String playerName = playerScanner.nextLine();
+            playerNames.add(playerName);
+            Player newPlayer = new Player();
+            players.add(newPlayer);
 
         }
         for(int j = 0; j < playerNum; j++){
-            Player p =  new Player();
-            players.add(p);
         }
         Collections.shuffle(playerNames);
         System.out.println("Players: " + playerNames);
@@ -61,18 +63,25 @@ public class Run {
                         "                                                                     ");
                         System.out.print(RESET);
     } 
-    public static void playerCycle() {
+    public int playerCycle() {
         for (int p = 0; p < players.size(); p++) {
-            players.get(p).playerTurn();
+            (players.get(p)).playerTurn();
+            System.out.println(players.size());
+            System.out.println("TEST------");
         }
+        return players.size();
     }
     
     
     
     public static void main(String[] args) {
+        //resest terminal
         System.out.print("\033[H\033[2J");
+        //game
         yahtzeeLogo();
         playerNames();  
+        //resest terminal
+        System.out.print("\033[H\033[2J");
         playerCycle();
     }
 

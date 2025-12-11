@@ -51,7 +51,6 @@ public class DicePrinter {
         this.sixDie.add("│ ●     ● │");
         this.sixDie.add("╰─────────╯");
 
-        // Add all faces to the master list
         this.dieFaces.add(oneDie);
         this.dieFaces.add(twoDie);
         this.dieFaces.add(threeDie);
