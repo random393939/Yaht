@@ -19,6 +19,8 @@ public class Player{
         private ArrayList<String> ScoreSheet = new ArrayList<String>();
         private DicePrinter diePrint = new DicePrinter();
         private int diceAmount;
+        private Run placeholder = new Run();
+        private int counter = -1;
 
 
         public Player() {
@@ -31,7 +33,9 @@ public class Player{
 
         }
         public void setName(){
-                name = playerTurn();;
+                counter ++;
+                ArrayList<String> Str = placeholder.getPlayerNames();
+                name = Str.get(counter);
         }
         public void playerTurn() {
                 getNewDice();
@@ -45,10 +49,11 @@ public class Player{
                         System.out.print(BLACK + "\033[3mWould you like to reroll Y/N \033[0m" + RED + name + "? " + RESET);
                         String reroll = rollScanner.nextLine(); 
                         if (reroll.equalsIgnoreCase("y") || reroll.equalsIgnoreCase("yes")) { 
+                        placeholder.terminalResetnv();
+                        diePrint.print(rollingDice);
                         System.out.print("How many dice would you like to reroll: " + name + "? ");
                         int diceAmount = rollScanner.nextInt();
                         rollScanner.nextLine(); 
-                        diePrint.print(rollingDice);
                         for (int i = 0; i < diceAmount; i++) {
                                 System.out.print("which die would you like to reroll " + name + "? ");
                                 int rerolledIndex = rollScanner.nextInt();
@@ -62,7 +67,8 @@ public class Player{
                         }
                         }
                         else {
-                                System.out.println("keeping dice");
+                                placeholder.terminalResetnv();
+                                System.out.println(GREEN +"keeping dice"+ RESET);
                                 diePrint.print(rollingDice);
                         }
                 }

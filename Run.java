@@ -8,7 +8,6 @@ import java.awt.Graphics;
 public class Run {
     private static ArrayList<Player> players = new ArrayList<>();
     private static ArrayList<String> playerNames = new ArrayList<String>();
-
     //imported colors from ANSI
     public static final String RESET = "\u001B[0m";
     public static final String BLACK = "\u001B[30m";
@@ -63,26 +62,32 @@ public class Run {
                         "                                                                     ");
                         System.out.print(RESET);
     } 
-    public int playerCycle() {
+    public static void playerCycle() {
         for (int p = 0; p < players.size(); p++) {
+            (players.get(p)).setName();
             (players.get(p)).playerTurn();
-            System.out.println(players.size());
-            System.out.println("TEST------");
+            terminalReset();
+            System.out.println(CYAN + "\033[3m next players turn \033[0m" + RESET);
         }
-        return players.size();
+    }
+    public static void terminalReset(){
+        //resest terminal
+        System.out.print("\033[H\033[2J");
+    }
+    public void terminalResetnv(){
+        //resest terminal
+        System.out.print("\033[H\033[2J");
     }
     
     
-    
     public static void main(String[] args) {
-        //resest terminal
-        System.out.print("\033[H\033[2J");
         //game
         yahtzeeLogo();
-        playerNames();  
-        //resest terminal
-        System.out.print("\033[H\033[2J");
+        playerNames(); 
+        terminalReset(); 
         playerCycle();
+        terminalReset();
+    
     }
 
 }
