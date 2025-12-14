@@ -1,0 +1,91 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+import java.awt.Color;
+import java.awt.Graphics; 
+public class Player{
+        public final String RESET = "\u001B[0m";
+        public final String BLACK = "\u001B[30m";
+        public final String RED = "\u001B[31m";
+        public final String GREEN = "\u001B[32m";
+        public final String YELLOW = "\u001B[33m";
+        public final String BLUE = "\u001B[34m";
+        public final String PURPLE = "\u001B[35m";
+        public final String CYAN = "\u001B[36m";
+        public final String WHITE = "\u001B[37m";
+        public String[] colors = {BLACK,RED,GREEN,YELLOW,BLUE,PURPLE,CYAN};
+        private String name;
+        private ArrayList<Integer> heldDice = new ArrayList<>();
+        private ArrayList<Die> rollingDice;
+        private ArrayList<String> ScoreSheet = new ArrayList<String>();
+        private DicePrinter diePrint = new DicePrinter();
+        private int diceAmount;
+        private Run placeholder = new Run();
+        private int counter = -1;
+
+
+        public Player() {
+
+                name = null;
+                heldDice = null;
+                this.rollingDice = new ArrayList<>();
+                ScoreSheet = null;
+                diceAmount = 5;
+
+        }
+        public void setName(){
+                counter ++;
+                ArrayList<String> Str = placeholder.getPlayerNames();
+                name = Str.get(counter);
+        }
+        public void playerTurn() {
+                getNewDice();
+                setRollingDice();
+        }
+        public ArrayList<Die> setRollingDice(){
+                diePrint.print(rollingDice);
+                for(int r = 0; r < 2; r++){
+                        //reroll
+                        Scanner rollScanner = new Scanner(System.in);
+                        System.out.print(BLACK + "\033[3mWould you like to reroll Y/N \033[0m" + RED + name + "? " + RESET);
+                        String reroll = rollScanner.nextLine(); 
+                        if (reroll.equalsIgnoreCase("y") || reroll.equalsIgnoreCase("yes")) { 
+                        placeholder.terminalResetnv();
+                        diePrint.print(rollingDice);
+                        System.out.print("How many dice would you like to reroll: " + name + "? ");
+                        int diceAmount = rollScanner.nextInt();
+                        rollScanner.nextLine(); 
+                        for (int i = 0; i < diceAmount; i++) {
+                                System.out.print("which die would you like to reroll " + name + "? ");
+                                int rerolledIndex = rollScanner.nextInt();
+                                rollScanner.nextLine(); 
+                                Die die = new Die();  
+                                //resest terminal
+                                System.out.print("\033[H\033[2J");
+                                rollingDice.set(rerolledIndex-1, die);
+                                System.out.println(BLACK+"Die #" + rerolledIndex + " has been rerolled "+ name + RESET);
+                                diePrint.print(rollingDice);
+                        }
+                        }
+                        else {
+                                placeholder.terminalResetnv();
+                                System.out.println(GREEN +"keeping dice"+ RESET);
+                                diePrint.print(rollingDice);
+                        }
+                }
+                return rollingDice;
+        }
+        public void getNewDice() {
+                for(int i = 0; i < diceAmount; i++) 
+                {
+                        Die die = new Die();
+                        die.roll();
+                        rollingDice.add(die);
+                }
+        }
+        public void keepDice() {
+
+        }
+        public void updateScoreSheet() {
+                
+        }                  
+}      
