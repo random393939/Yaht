@@ -81,8 +81,11 @@ public class Player{
                         }
                         else {
                                 keepDice();
+                                break;
                         }
+                        
                 }
+                updateScoreSheet();
                 return rollingDice;
         }
         public void getNewDice() {
@@ -99,6 +102,12 @@ public class Player{
                 diePrint.print(rollingDice);
         }
         public void updateScoreSheet() {
-                
+                scoresheet.printScoreSheet();
+                Scanner scoreScanner = new Scanner(System.in);
+                System.out.println("where would you like to place your score " + color + name + RESET + "? ");
+                String scoreChoice = scoreScanner.nextLine(); 
+                if(scoreChoice=="") {
+
+                }        
         }                  
 }      
