@@ -46,43 +46,41 @@ public class Player{
                 this.color = c;
         }
         public void playerTurn() {
-                //print scoresheet
-                scoresheet.printScoreSheet();
-                //player turn
                 getNewDice();
                 setRollingDice();
         }
         public ArrayList<Die> setRollingDice(){
+                System.out.println( color + name + "'s" + " turn" + RESET);
                 diePrint.print(rollingDice);
+                scoresheet.printScoreSheet();
                 for(int r = 0; r < 2; r++){
                         //reroll
 
-                        System.out.println( color + name + "'s" + " turn" + RESET);
                         Scanner rollScanner = new Scanner(System.in);
                         System.out.print( "\033[3mWould you like to reroll Y/N \033[0m" + color + name+" " + RESET +"? ");
                         String reroll = rollScanner.nextLine(); 
                         if (reroll.equalsIgnoreCase("y") || reroll.equalsIgnoreCase("yes")) { 
-                        placeholder.terminalResetnv();
-                        diePrint.print(rollingDice);
-                        System.out.print("how many dice would you like to reroll: "+ color + name + RESET + "? ");
-                        int diceAmount = rollScanner.nextInt();
-                        rollScanner.nextLine(); 
-                        for (int i = 0; i < diceAmount; i++) {
-                                System.out.print("which die would you like to reroll " + name + "? ");
-                                int rerolledIndex = rollScanner.nextInt();
-                                rollScanner.nextLine(); 
-                                Die die = new Die();  
-                                //resest terminal
-                                System.out.print("\033[H\033[2J");
-                                rollingDice.set(rerolledIndex-1, die);
-                                System.out.println(BLACK+"Die #" + rerolledIndex + " has been rerolled "+ name + RESET);
+                                placeholder.terminalResetNonStatic();
+                                System.out.println(GREEN +"rerolling..."+ RESET);
                                 diePrint.print(rollingDice);
-                        }
+                                scoresheet.printScoreSheet();
+                                System.out.print("how many dice would you like to reroll: "+ color + name + RESET + "? ");
+                                int diceAmount = rollScanner.nextInt();
+                                rollScanner.nextLine(); 
+                                for (int i = 0; i < diceAmount; i++) {
+                                        System.out.print("which die would you like to reroll " + name + "? ");
+                                        int rerolledIndex = rollScanner.nextInt();
+                                        placeholder.terminalResetNonStatic();
+                                        Die die = new Die();  
+                                        die.roll();
+                                        rollingDice.set(rerolledIndex-1, die);
+                                        System.out.println(BLACK+"Die #" + rerolledIndex + " has been rerolled - "+ color + name + RESET);
+                                        diePrint.print(rollingDice);
+                                        scoresheet.printScoreSheet();
+                                }
                         }
                         else {
-                                placeholder.terminalResetnv();
-                                System.out.println(GREEN +"keeping dice"+ RESET);
-                                diePrint.print(rollingDice);
+                                keepDice();
                         }
                 }
                 return rollingDice;
@@ -96,7 +94,9 @@ public class Player{
                 }
         }
         public void keepDice() {
-
+                placeholder.terminalResetNonStatic();
+                System.out.println(GREEN +"keeping dice"+ RESET);
+                diePrint.print(rollingDice);
         }
         public void updateScoreSheet() {
                 

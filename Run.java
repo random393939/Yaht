@@ -41,7 +41,7 @@ public class Run {
         }
         Collections.shuffle(playerNames);
         System.out.println("Players: " + playerNames);
-        
+        terminalReset();
     }
 
     public ArrayList<String> getPlayerNames() { 
@@ -49,7 +49,8 @@ public class Run {
     }
 
     public static void yahtzeeLogo() {
-        System.out.println(BLACK+"$$\\     $$\\         $$\\        $$\\                                   \r\n" + //
+        terminalReset();
+        System.out.println(BLACK +"$$\\     $$\\         $$\\        $$\\                                   \r\n" + //
                         "\\$$\\   $$  |        $$ |       $$ |                                  \r\n" + //
                         " \\$$\\ $$  /$$$$$$\\  $$$$$$$\\ $$$$$$\\   $$$$$$$$\\  $$$$$$\\   $$$$$$\\  \r\n" + //
                         "  \\$$$$  / \\____$$\\ $$  __$$\\\\_$$  _|  \\____$$  |$$  __$$\\ $$  __$$\\ \r\n" + //
@@ -59,22 +60,22 @@ public class Run {
                         "    \\__|   \\_______|\\__|  \\__|  \\____/ \\________| \\_______| \\_______|\r\n" + //
                         "                                                                     \r\n" + //
                         "                                                                     \r\n" + //
-                        "                                                                     ");
-                        System.out.print(RESET);
+                        "                                                                     "+ RESET);
     } 
     public static void playerCycle() {
         for (int p = 0; p < players.size(); p++) {
             players.get(p).setName(playerNames.get(p));
             (players.get(p)).playerTurn();
             terminalReset();
-            System.out.println(CYAN + "\033[3m next players turn \033[0m" + RESET);
+            System.out.println(CYAN + "\033[3mnext players turn \033[0m" + RESET);
         }
+        terminalReset();
     }
     public static void terminalReset() {
         //resest terminal
         System.out.print("\033[H\033[2J");
     }
-    public void terminalResetnv() {
+    public void terminalResetNonStatic() {
         //resest terminal
         System.out.print("\033[H\033[2J");
     }
@@ -82,13 +83,10 @@ public class Run {
     
     public static void main(String[] args) {
         //game
-        terminalReset();
         yahtzeeLogo();
         playerNames(); 
-        terminalReset(); 
         playerCycle();
-        terminalReset();
-    
+
     }
 
 }
