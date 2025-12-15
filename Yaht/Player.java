@@ -13,31 +13,42 @@ public class Player{
         public final String CYAN = "\u001B[36m";
         public final String WHITE = "\u001B[37m";
         public String[] colors = {BLACK,RED,GREEN,YELLOW,BLUE,PURPLE,CYAN};
+
+        private String color;
         private String name;
+        private int diceAmount;
+
         private ArrayList<Integer> heldDice = new ArrayList<>();
         private ArrayList<Die> rollingDice;
         private ArrayList<String> ScoreSheet = new ArrayList<String>();
-        private DicePrinter diePrint = new DicePrinter();
-        private int diceAmount;
-        private Run placeholder = new Run();
-        private int counter = -1;
+
+        private Scoresheet scoresheet;
+        private DicePrinter diePrint;
+        private Run placeholder;
 
 
         public Player() {
 
-                name = null;
-                heldDice = null;
+                this.name = null;
+                this.heldDice = null;
+                this.ScoreSheet = null;
+                this.diceAmount = 5;
+                this.diePrint = new DicePrinter();
                 this.rollingDice = new ArrayList<>();
-                ScoreSheet = null;
-                diceAmount = 5;
+                this.scoresheet = new Scoresheet(); 
+                this.placeholder = new Run();
 
         }
-        public void setName(){
-                counter ++;
-                ArrayList<String> Str = placeholder.getPlayerNames();
-                name = Str.get(counter);
+        public void setName(String n){
+                this.name = n;
+        }
+        public void setColor(String c) {
+                this.color = c;
         }
         public void playerTurn() {
+                //print scoresheet
+                scoresheet.printScoreSheet();
+                //player turn
                 getNewDice();
                 setRollingDice();
         }
@@ -45,13 +56,15 @@ public class Player{
                 diePrint.print(rollingDice);
                 for(int r = 0; r < 2; r++){
                         //reroll
+
+                        System.out.println( color + name + "'s" + " turn" + RESET);
                         Scanner rollScanner = new Scanner(System.in);
-                        System.out.print(BLACK + "\033[3mWould you like to reroll Y/N \033[0m" + RED + name + "? " + RESET);
+                        System.out.print( "\033[3mWould you like to reroll Y/N \033[0m" + color + name+" " + RESET +"? ");
                         String reroll = rollScanner.nextLine(); 
                         if (reroll.equalsIgnoreCase("y") || reroll.equalsIgnoreCase("yes")) { 
                         placeholder.terminalResetnv();
                         diePrint.print(rollingDice);
-                        System.out.print("How many dice would you like to reroll: " + name + "? ");
+                        System.out.print("how many dice would you like to reroll: "+ color + name + RESET + "? ");
                         int diceAmount = rollScanner.nextInt();
                         rollScanner.nextLine(); 
                         for (int i = 0; i < diceAmount; i++) {

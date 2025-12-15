@@ -18,33 +18,33 @@ public class Run {
     public static final String PURPLE = "\u001B[35m";
     public static final String CYAN = "\u001B[36m";
     public static final String WHITE = "\u001B[37m";
-    private static String[] colors = {BLACK,RED,GREEN,YELLOW,BLUE,PURPLE,CYAN};
+    private static String[] colors = {RED,GREEN,YELLOW,BLUE,PURPLE,CYAN};
 
 
     public static void playerNames() {
         Scanner playerScanner = new Scanner(System.in);
-        System.out.print("Enter number of players (max = 4 so far): ");
+        System.out.print("enter number of players: ");
         int playerNum = playerScanner.nextInt();
         playerScanner.nextLine();
-
+        System.out.println(BLACK + "(players start in random order) " + RESET);
         //generate random colors 
         for(int i = 0; i < playerNum; i ++){
-            String randColor = colors[(int) (Math.random() * 7) + 0];
-            System.out.print(randColor + "Enter player #" + (i+1) + " name: "+RESET);
 
+            String randColor = colors[(int) (Math.random() * 6) + 0];
+            System.out.print(randColor + "enter player #" + (i+1) + " name: "+RESET);
             String playerName = playerScanner.nextLine();
             playerNames.add(playerName);
             Player newPlayer = new Player();
+            newPlayer.setColor(randColor);
             players.add(newPlayer);
 
         }
-        for(int j = 0; j < playerNum; j++){
-        }
         Collections.shuffle(playerNames);
         System.out.println("Players: " + playerNames);
+        
     }
 
-    public ArrayList<String> getPlayerNames(){
+    public ArrayList<String> getPlayerNames() { 
         return playerNames;
     }
 
@@ -64,17 +64,17 @@ public class Run {
     } 
     public static void playerCycle() {
         for (int p = 0; p < players.size(); p++) {
-            (players.get(p)).setName();
+            players.get(p).setName(playerNames.get(p));
             (players.get(p)).playerTurn();
             terminalReset();
             System.out.println(CYAN + "\033[3m next players turn \033[0m" + RESET);
         }
     }
-    public static void terminalReset(){
+    public static void terminalReset() {
         //resest terminal
         System.out.print("\033[H\033[2J");
     }
-    public void terminalResetnv(){
+    public void terminalResetnv() {
         //resest terminal
         System.out.print("\033[H\033[2J");
     }
@@ -82,6 +82,7 @@ public class Run {
     
     public static void main(String[] args) {
         //game
+        terminalReset();
         yahtzeeLogo();
         playerNames(); 
         terminalReset(); 
