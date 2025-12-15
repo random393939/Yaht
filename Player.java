@@ -106,8 +106,43 @@ public class Player{
                 Scanner scoreScanner = new Scanner(System.in);
                 System.out.println("where would you like to place your score " + color + name + RESET + "? ");
                 String scoreChoice = scoreScanner.nextLine(); 
-                if(scoreChoice=="") {
-
-                }        
+                boolean input = true;
+                while(input){
+                        if(scoreChoice=="bonus" && scoresheet.isBonus() == false) {
+                                scoresheet.setBonusBol(true);
+                                input = false;
+                        }   
+                        else if(scoreChoice=="three of a kind" && scoresheet.isThree() == false) {
+                                scoresheet.setBonusBol(true);
+                                input = false;
+                        }       
+                        else if(scoreChoice=="four of a kind" && scoresheet.isFour() == false) {
+                                scoresheet.setBonusBol(true);
+                                input = false;
+                        }
+                        else if(scoreChoice=="full house" && scoresheet.isHouse() == false) {
+                                scoresheet.setBonusBol(true);
+                                input = false;
+                        }       
+                        else if(scoreChoice=="small straight" && scoresheet.isSmall() == false) {
+                                scoresheet.setBonusBol(true);
+                                input = false;
+                        }
+                        else if(scoreChoice=="large straight" && scoresheet.isLarge() == false) {
+                                scoresheet.setLargeBol(true);
+                                input = false;
+                        }       
+                        else if(scoreChoice=="yahtzee" && scoresheet.isYahtzee() == false) {
+                                scoresheet.setYahtzeeBol(true);
+                                input = false;
+                        }   
+                        else{
+                                System.out.println("try again where to place your score");
+                                System.out.println("ALL correct values: bonus,three of a kind,four of a kind,full house,small straight,large straight,yahtzee");
+                                System.out.println("where would you like to place your score " + color + name + RESET + "? ");
+                                scoreChoice = scoreScanner.nextLine(); 
+                                input = false;
+                        }  
+                }
         }                  
 }      

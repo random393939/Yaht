@@ -14,6 +14,16 @@ public class Scoresheet {
     private int bottomTotal;
     private int totalScore;
 
+    private boolean bonusBoolean;
+    private boolean threeBoolean;
+    private boolean fourBoolean;
+    private boolean houseBoolean;
+    private boolean smallBoolean;
+    private boolean largeBoolean;
+    private boolean yahtzeeBoolean;
+    private boolean chanceBoolean;
+    
+
     public Scoresheet() {
         this.tops = -1;
         this.threeOfAKind = -1;
@@ -28,30 +38,40 @@ public class Scoresheet {
         this.bottomTotal = 0;
         this.totalScore = 0;
 
+        this.bonusBoolean = false;
+        this.threeBoolean = false;
+        this.fourBoolean = false;
+        this.houseBoolean = false;
+        this.smallBoolean = false;
+        this.largeBoolean = false;
+        this.yahtzeeBoolean = false;
+        this.chanceBoolean = false;
+
+
     }
     public void setUpperScore(int value) {
-
     } 
-    public void setThreeOfAKind() {
 
+    public void setThreeOfAKind() {
+        threeBoolean = true;
     }   
     public void setFourOfAKind(ArrayList<Die> dice) {
-
+        fourBoolean = true;
     }   
     public void setFullHouse(ArrayList<Die> dice) {
-
+        houseBoolean = true;
     }   
     public void setSmallStraight(ArrayList<Die> dice) {
-
+        largeBoolean = true;
     }   
     public void setLargeStraight(ArrayList<Die> dice) {
-
+        bonusBoolean = true;
     }   
     public void setYahtzee(ArrayList<Die> dice) {
-
+        yahtzeeBoolean = true;
     }   
     public void setChance(ArrayList<Die> dice) {
-
+        chanceBoolean = true;
     }   
     public void setTopTotal() {
 
@@ -59,6 +79,72 @@ public class Scoresheet {
     public void setBottomTotal() {
 
     }   
+
+    //Ai for set and get for time (same function)
+    public boolean isBonus() {
+        return bonusBoolean;
+    }
+
+    public boolean isThree() {
+        return threeBoolean;
+    }
+
+    public boolean isFour() {
+        return fourBoolean;
+    }
+
+    public boolean isHouse() {
+        return houseBoolean;
+    }
+
+    public boolean isSmall() {
+        return smallBoolean;
+    }
+
+    public boolean isLarge() {
+        return largeBoolean;
+    }
+
+    public boolean isYahtzee() {
+        return yahtzeeBoolean;
+    }
+
+    public boolean isChance() {
+        return chanceBoolean;
+    }
+    
+    public void setBonusBol(boolean bonusBoolean) {
+        this.bonusBoolean = bonusBoolean;
+    }
+
+    public void setThreeBol(boolean threeBoolean) {
+        this.threeBoolean = threeBoolean;
+    }
+
+    public void setFourBol(boolean fourBoolean) {
+        this.fourBoolean = fourBoolean;
+    }
+
+    public void setHouseBol(boolean houseBoolean) {
+        this.houseBoolean = houseBoolean;
+    }
+
+    public void setSmallBol(boolean smallBoolean) {
+        this.smallBoolean = smallBoolean;
+    }
+
+    public void setLargeBol(boolean largeBoolean) {
+        this.largeBoolean = largeBoolean;
+    }
+
+    public void setYahtzeeBol(boolean yahtzeeBoolean) {
+        this.yahtzeeBoolean = yahtzeeBoolean;
+    }
+
+    public void setChanceBol(boolean chanceBoolean) {
+        this.chanceBoolean = chanceBoolean;
+    }
+
     //AI function to print scoresheet
     public void printScoreSheet() {
         System.out.println("╭────────SCORE SHEET─────────╮");
