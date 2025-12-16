@@ -6,8 +6,8 @@ import java.awt.Graphics;
 
 
 public class Run {
+    //player stuff
     private static ArrayList<Player> players = new ArrayList<>();
-    private static ArrayList<String> playerNames = new ArrayList<String>();
     //imported colors from ANSI
     public static final String RESET = "\u001B[0m";
     public static final String BLACK = "\u001B[30m";
@@ -26,28 +26,22 @@ public class Run {
         System.out.print("enter number of players: ");
         int playerNum = playerScanner.nextInt();
         playerScanner.nextLine();
-        System.out.println(BLACK + "(players start in random order) " + RESET);
-        //generate random colors 
-        for(int i = 0; i < playerNum; i ++){
-
-            String randColor = colors[(int) (Math.random() * 6) + 0];
-            System.out.print(randColor + "enter player #" + (i+1) + " name: "+RESET);
-            String playerName = playerScanner.nextLine();
-            playerNames.add(playerName);
-            Player newPlayer = new Player();
-            newPlayer.setColor(randColor);
-            players.add(newPlayer);
-
+        for (int i = 0; i < playerNum; i++) {
+            String randColor = colors[(int)(Math.random() * 6)];
+            System.out.print(randColor + "enter player #" + (i + 1) + " name: " + RESET);
+            String name = playerScanner.nextLine();
+            Player player = new Player(name); 
+            player.setName(name);
+            player.setColor(randColor);
+            players.add(player);
         }
-        Collections.shuffle(playerNames);
-        System.out.println("Players: " + playerNames);
+
+        Collections.shuffle(players); 
         terminalReset();
     }
 
-    public ArrayList<String> getPlayerNames() { 
-        return playerNames;
-    }
 
+    //text to ASCI font logo
     public static void yahtzeeLogo() {
         terminalReset();
         System.out.println(BLACK +"$$\\     $$\\         $$\\        $$\\                                   \r\n" + //
@@ -62,21 +56,58 @@ public class Run {
                         "                                                                     \r\n" + //
                         "                                                                     "+ RESET);
     } 
-    public static void playerCycle() {
-        for (int p = 0; p < players.size(); p++) {
-            players.get(p).setName(playerNames.get(p));
-            (players.get(p)).playerTurn();
-            terminalReset();
-            System.out.println(CYAN + "\033[3mnext players turn \033[0m" + RESET);
+    public static boolean winnersCheck() {
+        for (Player player : players) {
+            if (!player.getScoresheet().isComplete()) {
+                return false; 
+            }
         }
-        terminalReset();
+        return true; 
+    }
+    //AI function to print all players' scoresheets horizontally
+    public static void printAllScoreSheetsHorizontal() {
+        if (players.isEmpty()) {
+            return;
+        }
+
+        // Assuming 4 lines per scoresheet (from the new Scoresheet method)
+        final int TOTAL_LINES = 4;
+        final String SEPARATOR = "    "; // 4 spaces between sheets
+
+        // Iterate through each line number (Line 0 of all players, Line 1 of all players, etc.)
+        for (int i = 0; i < TOTAL_LINES; i++) {
+            StringBuilder sb = new StringBuilder();
+            
+            // For each line number, iterate through every player
+            for (Player player : players) {
+                // Get the specific line for the current player
+                sb.append(player.getScoresheet().getScoreSheetLine(i, player.getName()));
+                sb.append(SEPARATOR);
+            }
+            
+            // Print the merged line
+            System.out.println(sb.toString());
+        }
+    }
+    
+    public static void playerCycle() {
+        while (true) {
+            for (Player player : players) {
+                player.playerTurn();
+                terminalReset();
+                System.out.println(CYAN + "\033[3mnext players turn\033[0m" + RESET);
+            }
+            if (winnersCheck()) {
+                break;
+            }
+        }
     }
     public static void terminalReset() {
         //resest terminal
         System.out.print("\033[H\033[2J");
     }
     public void terminalResetNonStatic() {
-        //resest terminal
+        //resest terminal (non static version)
         System.out.print("\033[H\033[2J");
     }
     

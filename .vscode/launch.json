@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Run",
+            "request": "launch",
+            "mainClass": "Run",
+            "projectName": "Yaht-main_433c450a"
+        },
+        {
+            "type": "java",
             "name": "Current File",
             "request": "launch",
             "mainClass": "${file}"
