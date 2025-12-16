@@ -6,7 +6,6 @@ import java.awt.Graphics;
 
 
 public class Run {
-    //player stuff
     private static ArrayList<Player> players = new ArrayList<>();
     //imported colors from ANSI
     public static final String RESET = "\u001B[0m";
@@ -41,7 +40,7 @@ public class Run {
     }
 
 
-    //text to ASCI font logo
+    //text to ASCII font logo
     public static void yahtzeeLogo() {
         terminalReset();
         System.out.println(BLACK +"$$\\     $$\\         $$\\        $$\\                                   \r\n" + //
@@ -103,11 +102,11 @@ public class Run {
         }
     }
     public static void terminalReset() {
-        //resest terminal
+        //reset terminal
         System.out.print("\033[H\033[2J");
     }
     public void terminalResetNonStatic() {
-        //resest terminal (non static version)
+        //reset terminal (non static version)
         System.out.print("\033[H\033[2J");
     }
     

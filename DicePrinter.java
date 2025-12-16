@@ -1,5 +1,5 @@
 import java.util.ArrayList;
-
+//AI Class for AMSCI ART
 public class DicePrinter {
 
     // Final fields to store the ASCII art for the six faces using your preferred symbols

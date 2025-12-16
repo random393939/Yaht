@@ -38,11 +38,11 @@ public class Player{
         public String getName() {
                 return name;
         }
-        public void setName(String n){
-                this.name = n;
+        public void setName(String name){
+                this.name = name;
         }
-        public void setColor(String c) {
-                this.color = c;
+        public void setColor(String color) {
+                this.color = color;
         }
         public void playerTurn() {
                 rollingDice.clear();
@@ -54,7 +54,7 @@ public class Player{
                 diePrint.print(rollingDice);
                 Run.printAllScoreSheetsHorizontal();
 
-                for(int r = 0; r < 2; r++){
+                for(int r = 0; r < 3; r++){
                         //reroll
 
                         Scanner rollScanner = new Scanner(System.in);

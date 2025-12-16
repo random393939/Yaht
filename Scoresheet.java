@@ -33,19 +33,20 @@ public class Scoresheet {
     //I searched up hashmap counting online to help with this part
     private int sumDice(ArrayList<Die> dice){
         int tempCountDice = 0;
+
         for (Die die: dice){
             tempCountDice = tempCountDice + die.getValue();
         }
         return tempCountDice;
     }
 
-    public void setThreeOfAKind(ArrayList<Die> dice) {
-        if (threeBoolean == true){
+    public void setThreeOfAKind(ArrayList<Die> dice){
+        if (threeBoolean) {
             return;
-        } 
+        }
         HashMap<Integer, Integer> counts = countDice(dice);
-        for (int counter_1 : counts.values()) {
-            if (counter_1 >= 3){
+        for (int count : counts.values()) {
+            if (count >=3) {
                 threeOfAKind = sumDice(dice);
                 threeBoolean = true;
                 return;
@@ -55,12 +56,12 @@ public class Scoresheet {
         threeBoolean = true;
     }
     public void setFourOfAKind(ArrayList<Die> dice){
-        if (fourBoolean){
+        if (fourBoolean) {
             return;
         }
         HashMap<Integer, Integer> counts = countDice(dice);
-        for (int counter_2 : counts.values()){
-            if (counter_2 >= 4) {
+        for (int count : counts.values()) {
+            if (count >=4) {
                 fourOfAKind = sumDice(dice);
                 fourBoolean = true;
                 return;
@@ -120,7 +121,7 @@ public class Scoresheet {
     }
     private HashMap<Integer, Integer> countDice(ArrayList<Die> dice){
         HashMap<Integer, Integer> counts = new HashMap<>();
-        for (Die die : dice){
+        for (Die die :dice){
             int value = die.getValue();
 
             if (counts.containsKey(value)){
@@ -146,7 +147,6 @@ public class Scoresheet {
     private String pad(String s) {
         return String.format("%-" + CARD_WIDTH + "s", s);
     }
-    //AI formatting
     public String getScoreSheetLine(int line, String playerName) {
         String name = playerName.length() > 10
                 ? playerName.substring(0, 10)
