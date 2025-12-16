@@ -30,25 +30,18 @@ public class Scoresheet {
     }
 
     //logic stuff
-    //I searched up hashmap counting online to help with this part
-    private int sumDice(ArrayList<Die> dice){
-        int tempCountDice = 0;
-
-        for (Die die: dice){
-            tempCountDice = tempCountDice + die.getValue();
-        }
-        return tempCountDice;
-    }
 
     public void setThreeOfAKind(ArrayList<Die> dice){
+        //if you dont have three of a kind exit void
         if (threeBoolean) {
             return;
         }
-        HashMap<Integer, Integer> counts = countDice(dice);
-        for (int count : counts.values()) {
-            if (count >=3) {
-                threeOfAKind = sumDice(dice);
+        ArrayList<Integer> arrayCount = new ArrayList<>();
+        for (int i = 1; i<dice.size(); i++) {
+            if ((dice.get(i)).getValue()>=3) {
+                threeOfAKind = totalCountDice(dice);
                 threeBoolean = true;
+                //return nothing 
                 return;
             }
         }
@@ -59,10 +52,10 @@ public class Scoresheet {
         if (fourBoolean) {
             return;
         }
-        HashMap<Integer, Integer> counts = countDice(dice);
-        for (int count : counts.values()) {
-            if (count >=4) {
-                fourOfAKind = sumDice(dice);
+        ArrayList<Integer> fourOf = countDice(dice);
+        for (int counter : fourOf) {
+            if (counter >=4) {
+                fourOfAKind = totalCountDice(dice);
                 fourBoolean = true;
                 return;
             }
@@ -77,8 +70,8 @@ public class Scoresheet {
         }
         boolean hasTwo = false;
         boolean hasThree = false;
-        HashMap<Integer, Integer> counts = countDice(dice);
-        for (int counter_3 : counts.values()) {
+        ArrayList<Integer> FHcounts = countDice(dice);
+        for (int counter_3 : FHcounts) {
             if (counter_3 == 2) hasTwo = true;
             if (counter_3 == 3) hasThree = true;
         }
@@ -97,19 +90,20 @@ public class Scoresheet {
         smallStraight = 30;
         smallBoolean =true;
     }
-
     public void setLargeStraight(ArrayList<Die> dice) {
-        if (largeBoolean == true) return;
+        if (largeBoolean == true) {
+            return;
+        }
         largeStraight = 40;
         largeBoolean = true;
     }
 
+    //
     public void setYahtzee(ArrayList<Die> dice){
         if (yahtzeeBoolean) {
             return;
-        }
-        HashMap<Integer, Integer> counts = countDice(dice);
-        for (int counter4 : counts.values()) {
+
+        for (int counter4 : dice) {
             if (counter4 == 5) {
                 yahtzee = 50;
                 yahtzeeBoolean = true;
@@ -119,26 +113,30 @@ public class Scoresheet {
         yahtzee = 0;
         yahtzeeBoolean = true;
     }
-    private HashMap<Integer, Integer> countDice(ArrayList<Die> dice){
-        HashMap<Integer, Integer> counts = new HashMap<>();
+    //
+    private int countDice(ArrayList<Die> dice){
+        int counterDice = 0;
         for (Die die :dice){
-            int value = die.getValue();
-
-            if (counts.containsKey(value)){
-                counts.put(value, counts.get(value) + 1);
-            }
-            else{
-                counts.put(value, 1);
-            }
-
+            counterDice += 1;
         }
-        return counts;
+        return counterDice;
+    }
+
+
+    private int totalCountDice(ArrayList<Die> dice){
+
+        int tempCountDice = 0;
+        for (Die die: dice){
+            tempCountDice = tempCountDice + die.getValue();
+        }
+        return tempCountDice;
     }
     public void setChance(ArrayList<Die> dice) {
+        //If chance is already set up then return nothing
         if (chanceBoolean == true){
             return;
         }
-        chance = sumDice(dice);
+        chance = totalCountDice(dice);
         chanceBoolean = true;
     }
 

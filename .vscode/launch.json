@@ -9,6 +9,13 @@
             "name": "Run",
             "request": "launch",
             "mainClass": "Run",
+            "projectName": "Yaht_b05d43a0"
+        },
+        {
+            "type": "java",
+            "name": "Run",
+            "request": "launch",
+            "mainClass": "Run",
             "projectName": "Yaht-main_433c450a"
         },
         {
