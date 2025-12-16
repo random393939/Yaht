@@ -4,7 +4,6 @@ import java.util.function.Function;
 
 public class Scoresheet {
 
-    private int tops = -1;
     private int threeOfAKind = -1;
     private int fourOfAKind = -1;
     private int fullHouse = -1;
@@ -223,9 +222,6 @@ public class Scoresheet {
 
     public int getTotalScore() {
     int tempCount = 0;
-        if (tops!= -1) {
-            tempCount += tops;
-        }
         if (threeOfAKind!= -1){
             tempCount += threeOfAKind;
         } 
